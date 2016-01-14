@@ -8,7 +8,7 @@
 
 BEGIN	{
 	FS="	";
-	printf("#NAME\tCHROM\tPOS-0\tSTRAND\tEXON\tCDNA-0\tPROT-0\n");
+	printf("#NAME\tCHROM\tPOS-0\tSTRAND\tEXON\tCODON-0\tCDNA-0\tPROT-0\n");
 	}
 	{
 	name = $1;
@@ -40,7 +40,7 @@ BEGIN	{
 				codon= cdna_len%3;
 				if((codon!=0 && pos+1>=exonEnd))
 					{
-					printf("%s\t%s\t%d\t%s\tExon_%d\t%d\t%d\n",name,chrom,pos,strand,i,cdna_len,int(cdna_len/3));
+					printf("%s\t%s\t%d\t%s\tExon_%d\t%d\t%d\t%d\n",name,chrom,pos,strand,i,codon,cdna_len,int(cdna_len/3));
 					}
 				}
 			}
@@ -57,9 +57,9 @@ BEGIN	{
 				if(pos >= cdsEnd ) continue;
 				cdna_len++;
 				codon= cdna_len%3;
-				if(codon!=0 && pos-2<exonStart)
+				if(codon!=0 && pos-1<exonStart)
 					{
-					printf("%s\t%s\t%d\t%s\tExon_%d\t%d\t%d\n",name,chrom,pos,strand,i,cdna_len,int(cdna_len/3));
+					printf("%s\t%s\t%d\t%s\tExon_%d\t%d\t%d\t%d\n",name,chrom,pos,strand,i,codon,cdna_len,int(cdna_len/3));
 					}
 				}
 			}
